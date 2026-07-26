@@ -25,7 +25,9 @@ Edit `data/events.json` directly, or open a pull request. Each event looks like:
   "city": "Blackpool",
   "country": "United Kingdom",
   "region": "Europe",
-  "type": "Championship",
+  "lat": 53.8175,
+  "lon": -3.0357,
+  "types": ["Competition"],
   "status": "confirmed",
   "start_date": "2026-03-06",
   "end_date": "2026-03-08",
@@ -40,9 +42,13 @@ Edit `data/events.json` directly, or open a pull request. Each event looks like:
 Only multi-day events (`end_date` later than `start_date`) show on the site —
 that's the objective bar for "big event" agreed on for this list.
 
-`region` is used for the region filter. Current values in use: Europe, Oceania,
-Asia, Americas, Other — extend `country_region` in `convert.py` (or add new
-entries directly to `events.json`) as new countries show up.
+`types` is a fixed vocabulary and an array, since one event can be more than one
+kind (e.g. a competition weekend that also runs workshops):
+**Competition, Workshops, Dance Holiday, Cruise, Other**. Each type has a fixed
+colour used consistently across the card tags and the map pins. `region` is used
+for the region filter. Current values in use: Europe, Oceania, Asia, Americas,
+Other — extend `country_region` in `convert.py` (or add new entries directly to
+`events.json`) as new countries show up.
 
 ## The scraper (automated pulling)
 
