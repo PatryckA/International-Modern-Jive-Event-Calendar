@@ -169,7 +169,7 @@ def merge_candidates(events, candidates):
             "city": "",
             "country": "",
             "region": "Other",
-            "type": "Unknown",
+            "types": ["Other"],
             "status": "tbc",
             "start_date": c["start_date"],
             "end_date": c.get("end_date", c["start_date"]),
