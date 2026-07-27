@@ -465,6 +465,27 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "australia-gosford-testing-event",
+    "name": "Testing event",
+    "city": "Gosford ",
+    "country": "Australia ",
+    "region": "Other",
+    "lat": -33.4240979,
+    "lon": 151.3411475,
+    "types": [
+      "Competition",
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-07-30",
+    "end_date": "2026-07-31",
+    "multiday": true,
+    "website": "",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "australia-gold-coast-ignite-queensland-modern-jive-championship",
     "name": "Ignite/ Queensland Modern Jive Championship",
     "city": "Gold Coast",
