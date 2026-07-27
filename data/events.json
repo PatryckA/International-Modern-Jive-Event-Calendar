@@ -465,6 +465,26 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "australia-melbourne-test-2",
+    "name": "Test #2",
+    "city": "Melbourne",
+    "country": "Australia",
+    "region": "Oceania",
+    "lat": null,
+    "lon": null,
+    "types": [
+      "Dance Holiday"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-08-01",
+    "end_date": "2026-08-02",
+    "multiday": true,
+    "website": "www.google.com",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "australia-gold-coast-ignite-queensland-modern-jive-championship",
     "name": "Ignite/ Queensland Modern Jive Championship",
     "city": "Gold Coast",
