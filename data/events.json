@@ -452,54 +452,14 @@
     "lat": 48.8566,
     "lon": 2.3522,
     "types": [
-      "Cruise",
-      "Dance Holiday"
+      "Dance Holiday",
+      "Cruise"
     ],
     "status": "confirmed",
     "start_date": "2026-07-23",
     "end_date": "2026-07-30",
     "multiday": true,
     "website": "https://www.ceroccruise.com/river-cruise-with-ceroc-2026.html",
-    "ai_sourced": false,
-    "needs_review": false,
-    "source": "organiser-submitted"
-  },
-  {
-    "id": "australia-melbourne-test-5",
-    "name": "Test 5",
-    "city": "Melbourne",
-    "country": "Australia",
-    "region": "Oceania",
-    "lat": -37.8142454,
-    "lon": 144.9631732,
-    "types": [
-      "Cruise"
-    ],
-    "status": "confirmed",
-    "start_date": "2026-07-29",
-    "end_date": "2026-07-30",
-    "multiday": true,
-    "website": "www.google.com",
-    "ai_sourced": false,
-    "needs_review": false,
-    "source": "organiser-submitted"
-  },
-  {
-    "id": "australia-melbourne-test-2",
-    "name": "Test #2",
-    "city": "Melbourne",
-    "country": "Australia",
-    "region": "Oceania",
-    "lat": null,
-    "lon": null,
-    "types": [
-      "Dance Holiday"
-    ],
-    "status": "confirmed",
-    "start_date": "2026-08-01",
-    "end_date": "2026-08-02",
-    "multiday": true,
-    "website": "www.google.com",
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
@@ -567,27 +527,6 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "australia-sydney-test-event-1",
-    "name": "Test event #1",
-    "city": "Sydney",
-    "country": "Australia ",
-    "region": "Other",
-    "lat": null,
-    "lon": null,
-    "types": [
-      "Competition",
-      "Workshops"
-    ],
-    "status": "confirmed",
-    "start_date": "2026-09-04",
-    "end_date": "2026-09-06",
-    "multiday": true,
-    "website": "www.google.com",
-    "ai_sourced": false,
-    "needs_review": false,
-    "source": "organiser-submitted"
-  },
-  {
     "id": "spain-islantilla-huelva-ceroc-medfest",
     "name": "Ceroc Medfest",
     "city": "Islantilla / Huelva",
@@ -596,8 +535,8 @@
     "lat": 37.1985,
     "lon": -7.2103,
     "types": [
-      "Dance Holiday",
-      "Workshops"
+      "Workshops",
+      "Dance Holiday"
     ],
     "status": "confirmed",
     "start_date": "2026-10-04",
@@ -639,7 +578,7 @@
     "types": [
       "Other"
     ],
-    "status": "tbc",
+    "status": "confirmed",
     "start_date": "2026-10-23",
     "end_date": "2026-10-25",
     "multiday": true,
@@ -660,9 +599,9 @@
       "Competition",
       "Workshops"
     ],
-    "status": "tbc",
-    "start_date": "2026-11-06",
-    "end_date": "2026-11-08",
+    "status": "confirmed",
+    "start_date": "2026-11-13",
+    "end_date": "2026-11-15",
     "multiday": true,
     "website": "https://www.jive.berlin/weekender/dancefest/?fbclid=IwY2xjawOJMJJleHRuA2FlbQIxMABicmlkETFJc1RCRTdtQU1CRElvU2phc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHrYSFDsG5CfAthKznNHqLmWJ6Pc8irJKzTg0iMcx4qr_pjTqicgAt-za87g7_aem_HwsgayTXvGUkDoL551riGw",
     "ai_sourced": false,
@@ -701,31 +640,11 @@
       "Competition",
       "Workshops"
     ],
-    "status": "tbc",
+    "status": "confirmed",
     "start_date": "2026-11-27",
     "end_date": "2026-11-29",
     "multiday": true,
     "website": "https://cerocevents.co.nz/ceroc-nz-champs/",
-    "ai_sourced": false,
-    "needs_review": false,
-    "source": "organiser-submitted"
-  },
-  {
-    "id": "australia-perth-test-3",
-    "name": "Test #3",
-    "city": "Perth",
-    "country": "Australia",
-    "region": "Oceania",
-    "lat": -31.9558967,
-    "lon": 115.8605784,
-    "types": [
-      "Dance Holiday"
-    ],
-    "status": "confirmed",
-    "start_date": "2026-12-16",
-    "end_date": "2026-12-18",
-    "multiday": true,
-    "website": "www.google.com",
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
