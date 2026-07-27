@@ -527,6 +527,27 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "australia-sydney-test-event-1",
+    "name": "Test event #1",
+    "city": "Sydney",
+    "country": "Australia ",
+    "region": "Other",
+    "lat": null,
+    "lon": null,
+    "types": [
+      "Competition",
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-09-04",
+    "end_date": "2026-09-06",
+    "multiday": true,
+    "website": "www.google.com",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "spain-islantilla-huelva-ceroc-medfest",
     "name": "Ceroc Medfest",
     "city": "Islantilla / Huelva",
