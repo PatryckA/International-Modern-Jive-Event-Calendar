@@ -52,6 +52,10 @@
   .type-checks{display:flex; flex-direction:column; gap:2px; min-width:110px;}
   .type-checks label{display:flex; align-items:center; gap:5px; font-size:0.76rem; color:var(--slate); cursor:pointer;}
   .type-checks input{width:auto; accent-color:var(--gold);}
+  .token-box{background:var(--floor-raised); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:24px;}
+  .token-box input{max-width:420px; display:inline-block; margin-right:8px;}
+  .token-box .btn{padding:8px 16px; font-size:0.8rem;}
+  #publishMsg{display:block; margin-top:10px; font-size:0.84rem;}
 </style>
 </head>
 <body>
@@ -67,7 +71,19 @@
 <div class="steps">
   <b>1.</b> Edit rows below, or click "Add event" for a new one.<br>
   <b>2.</b> Click <b>Generate JSON</b> at the bottom.<br>
-  <b>3.</b> Click <b>Copy</b>, then go to <code>data/events.json</code> on GitHub → edit (pencil icon) → select all → paste → commit.
+  <b>3.</b> Click <b>Publish directly to GitHub</b> (needs a token, set up below) — or use <b>Copy to clipboard</b> and paste into <code>data/events.json</code> on GitHub yourself.
+</div>
+
+<div class="token-box">
+  <b>GitHub token</b> (kept only in this browser's storage, never sent anywhere except GitHub's API)<br><br>
+  <input type="password" id="tokenInput" placeholder="Paste your fine-grained PAT here">
+  <button class="btn secondary" onclick="saveToken()">Save</button>
+  <button class="btn secondary" onclick="forgetToken()">Forget</button>
+  <div id="tokenStatus" style="margin-top:8px; font-size:0.8rem; color:var(--slate);"></div>
+  <div style="margin-top:10px; font-size:0.78rem; color:var(--slate); line-height:1.5;">
+    Needs a fine-grained token scoped to just this repo with <b>Contents: Read and write</b> —
+    the same kind used for the approval-email flow. If you're on a shared or public computer, click Forget when done.
+  </div>
 </div>
 
 <div id="loadArea">
@@ -101,9 +117,94 @@
 
 <div id="output"></div>
 <button class="btn secondary" id="copyBtn" style="display:none;" onclick="copyOutput()">Copy to clipboard</button>
+<button class="btn" id="publishBtn" style="display:none;" onclick="publishToGitHub()">Publish directly to GitHub</button>
 <span id="copyMsg">Copied!</span>
+<div id="publishMsg"></div>
 
 <script>
+const GITHUB_OWNER = "PatryckA";
+const GITHUB_REPO = "International-Modern-Jive-Event-Calendar";
+const GITHUB_PATH = "data/events.json";
+const GITHUB_BRANCH = "main";
+const TOKEN_STORAGE_KEY = "otf_admin_github_token";
+
+let lastGeneratedJSON = null;
+
+function saveToken(){
+  const val = document.getElementById('tokenInput').value.trim();
+  if (!val){ alert('Paste a token first.'); return; }
+  localStorage.setItem(TOKEN_STORAGE_KEY, val);
+  document.getElementById('tokenInput').value = '';
+  updateTokenStatus();
+}
+
+function forgetToken(){
+  localStorage.removeItem(TOKEN_STORAGE_KEY);
+  updateTokenStatus();
+}
+
+function updateTokenStatus(){
+  const has = !!localStorage.getItem(TOKEN_STORAGE_KEY);
+  document.getElementById('tokenStatus').textContent = has
+    ? '✅ Token saved in this browser.'
+    : 'No token saved yet — "Publish directly to GitHub" won\'t work until one is set.';
+}
+
+function toBase64Unicode(str){
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  bytes.forEach(b => binary += String.fromCharCode(b));
+  return btoa(binary);
+}
+
+async function publishToGitHub(){
+  const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+  const msg = document.getElementById('publishMsg');
+  if (!token){
+    msg.style.color = '#e2583e';
+    msg.textContent = 'No token saved — paste one above and click Save first.';
+    return;
+  }
+  if (!lastGeneratedJSON){
+    msg.style.color = '#e2583e';
+    msg.textContent = 'Click "Generate JSON" first.';
+    return;
+  }
+
+  msg.style.color = 'var(--slate)';
+  msg.textContent = 'Publishing…';
+
+  try{
+    const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
+    const getRes = await fetch(`${apiUrl}?ref=${GITHUB_BRANCH}`, {
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
+    });
+    if (!getRes.ok) throw new Error(`Couldn't read the current file (${getRes.status}). Check the token has Contents: Read and write access.`);
+    const fileData = await getRes.json();
+
+    const putRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },
+      body: JSON.stringify({
+        message: 'Update events via admin tool',
+        content: toBase64Unicode(lastGeneratedJSON),
+        sha: fileData.sha,
+        branch: GITHUB_BRANCH,
+      }),
+    });
+    if (!putRes.ok){
+      const errText = await putRes.text();
+      throw new Error(`GitHub rejected the commit (${putRes.status}): ${errText}`);
+    }
+
+    msg.style.color = 'var(--gold)';
+    msg.textContent = '✅ Published! The site will update within about a minute.';
+  }catch(err){
+    msg.style.color = '#e2583e';
+    msg.textContent = '❌ ' + err.message;
+  }
+}
+
 const TYPES = ["Competition","Workshops","Dance Holiday","Cruise","Other"];
 const COUNTRY_REGION = {
   'United Kingdom':'Europe','Scotland':'Europe','England':'Europe','Wales':'Europe','Ireland':'Europe',
@@ -198,13 +299,15 @@ function generateJSON(){
 
   const out = document.getElementById('output');
   out.style.display = 'block';
-  out.textContent = JSON.stringify(result, null, 2) + warning;
+  lastGeneratedJSON = JSON.stringify(result, null, 2);
+  out.textContent = lastGeneratedJSON + warning;
   document.getElementById('copyBtn').style.display = 'inline-block';
+  document.getElementById('publishBtn').style.display = 'inline-block';
+  document.getElementById('publishMsg').textContent = '';
 }
 
 function copyOutput(){
-  const text = document.getElementById('output').textContent.replace(/\n\/\/.*$/, '');
-  navigator.clipboard.writeText(text).then(() => {
+  navigator.clipboard.writeText(lastGeneratedJSON).then(() => {
     const msg = document.getElementById('copyMsg');
     msg.style.display = 'inline';
     setTimeout(() => msg.style.display = 'none', 2000);
@@ -212,6 +315,7 @@ function copyOutput(){
 }
 
 async function init(){
+  updateTokenStatus();
   try{
     const res = await fetch('data/events.json');
     if (!res.ok) throw new Error();
