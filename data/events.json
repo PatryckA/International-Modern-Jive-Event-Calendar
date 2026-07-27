@@ -689,5 +689,25 @@
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
+  },
+  {
+    "id": "australia-perth-test-3",
+    "name": "Test #3",
+    "city": "Perth",
+    "country": "Australia",
+    "region": "Oceania",
+    "lat": -31.9558967,
+    "lon": 115.8605784,
+    "types": [
+      "Dance Holiday"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-12-16",
+    "end_date": "2026-12-18",
+    "multiday": true,
+    "website": "www.google.com",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
   }
 ]
