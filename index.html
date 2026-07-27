@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>On the Floor — International Modern Jive & Ceroc Events</title>
+<title>International Modern Jive Event Calendar</title>
 <meta name="description" content="Every major Modern Jive & Ceroc weekender, championship and dance holiday worth the flight, in one place.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -220,6 +220,18 @@
     margin-top:12px;
   }
 
+  .topbar{
+    display:flex;
+    justify-content:flex-end;
+    max-width:1100px;
+    margin:0 auto;
+    padding:20px 24px 0;
+  }
+  .topbar .btn{
+    padding:9px 18px;
+    font-size:0.82rem;
+  }
+
   .legend{
     display:flex;
     flex-wrap:wrap;
@@ -390,9 +402,13 @@
 </head>
 <body>
 
+  <div class="topbar">
+    <a class="btn" href="https://forms.gle/rd3Dw94GBQt66cZx9" target="_blank" rel="noopener">Submit your event</a>
+  </div>
+
   <section class="hero">
-    <div class="hero-eyebrow">On the floor · International calendar</div>
-    <h1>Every weekender worth <em>booking flights for.</em></h1>
+    <div class="hero-eyebrow">International calendar</div>
+    <h1>International Modern Jive <em>Event Calendar</em></h1>
     <p class="hero-sub">Championships, weekenders and dance holidays across the international Ceroc & Modern Jive community — one list, always sorted by what's coming up next.</p>
     <div class="stat-row" id="statRow"></div>
   </section>
@@ -409,6 +425,10 @@
       <label class="toggle-tbc">
         <input type="checkbox" id="tbcToggle" checked>
         Include unconfirmed dates
+      </label>
+      <label class="toggle-tbc">
+        <input type="checkbox" id="pastToggle">
+        Show past events
       </label>
       <div class="view-toggle">
         <button id="listBtn" class="active" type="button">List</button>
@@ -1118,9 +1138,8 @@ let EVENTS = [];
 function fmtRange(startISO, endISO){
   const s = new Date(startISO+"T00:00:00");
   const e = new Date(endISO+"T00:00:00");
-  const sameMonth = s.getMonth() === e.getMonth();
   const startStr = `${s.getDate()} ${MONTHS[s.getMonth()]}`;
-  const endStr = sameMonth ? `${e.getDate()}` : `${e.getDate()} ${MONTHS[e.getMonth()]}`;
+  const endStr = `${e.getDate()} ${MONTHS[e.getMonth()]}`;
   return `${startStr}–${endStr}`;
 }
 
@@ -1129,9 +1148,10 @@ function getFiltered(){
   const region = document.getElementById('regionFilter').value;
   const type = document.getElementById('typeFilter').value;
   const includeTbc = document.getElementById('tbcToggle').checked;
+  const showPast = document.getElementById('pastToggle').checked;
   const today = new Date().toISOString().slice(0,10);
 
-  let filtered = EVENTS.filter(e => e.end_date >= today);
+  let filtered = showPast ? EVENTS.slice() : EVENTS.filter(e => e.end_date >= today);
   if (!includeTbc) filtered = filtered.filter(e => e.status === 'confirmed');
   if (region) filtered = filtered.filter(e => e.region === region);
   if (type) filtered = filtered.filter(e => e.types.includes(type));
@@ -1325,6 +1345,7 @@ async function init(){
     document.getElementById(id).addEventListener('input', render)
   );
   document.getElementById('tbcToggle').addEventListener('change', render);
+  document.getElementById('pastToggle').addEventListener('change', render);
   document.getElementById('listBtn').addEventListener('click', () => setView('list'));
   document.getElementById('mapBtn').addEventListener('click', () => setView('map'));
 }
