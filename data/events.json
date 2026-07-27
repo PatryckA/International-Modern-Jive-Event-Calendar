@@ -465,6 +465,26 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "australia-melbourne-test-5",
+    "name": "Test 5",
+    "city": "Melbourne",
+    "country": "Australia",
+    "region": "Oceania",
+    "lat": -37.8142454,
+    "lon": 144.9631732,
+    "types": [
+      "Cruise"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-07-29",
+    "end_date": "2026-07-30",
+    "multiday": true,
+    "website": "www.google.com",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "australia-melbourne-test-2",
     "name": "Test #2",
     "city": "Melbourne",
