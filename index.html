@@ -335,7 +335,16 @@
       radial-gradient(circle 6px at 6px 0, var(--ink) 6px, transparent 6.5px) top left / 12px 18px repeat-y;
   }
 
-  .ticket-name{font-size:1.12rem; font-weight:600; margin-bottom:6px; line-height:1.25;}
+  .ticket-name{font-size:1.12rem; font-weight:600; margin-bottom:6px; line-height:1.25; display:block; color:var(--paper); text-decoration:none;}
+  .ticket-name:hover{color:var(--gold); text-decoration:underline;}
+  .report-issue{
+    display:inline-block;
+    margin-top:12px;
+    font-size:0.7rem;
+    color:var(--slate);
+    text-decoration:underline;
+  }
+  .report-issue:hover{color:var(--gold);}
   .ticket-loc{color:var(--slate); font-size:0.86rem; margin-bottom:12px;}
   .ticket-tags{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
   .tag{
@@ -1126,12 +1135,64 @@
 
 <script>
 const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-const FLAGS = {
-  "United Kingdom":"🇬🇧","Scotland":"🏴","England":"🏴","Wales":"🏴","New Zealand":"🇳🇿",
-  "Australia":"🇦🇺","Greece":"🇬🇷","Spain":"🇪🇸","Cambodia":"🇰🇭","Vietnam":"🇻🇳",
-  "France":"🇫🇷","Germany":"🇩🇪","Cyprus":"🇨🇾","Italy":"🇮🇹","Ireland":"🇮🇪",
-  "USA":"🇺🇸","Canada":"🇨🇦","Bali":"🇮🇩","Indonesia":"🇮🇩"
+// Maps country names/common aliases to ISO 3166-1 alpha-2 codes. Flag emoji are
+// then computed from the code automatically (see countryFlag below), so any
+// correctly-typed country works without needing its flag added by hand.
+const COUNTRY_CODES = {
+  "afghanistan":"AF","albania":"AL","algeria":"DZ","andorra":"AD","angola":"AO",
+  "argentina":"AR","armenia":"AM","australia":"AU","austria":"AT","azerbaijan":"AZ",
+  "bahamas":"BS","bahrain":"BH","bangladesh":"BD","barbados":"BB","belarus":"BY",
+  "belgium":"BE","belize":"BZ","benin":"BJ","bhutan":"BT","bolivia":"BO",
+  "bosnia and herzegovina":"BA","botswana":"BW","brazil":"BR","brunei":"BN","bulgaria":"BG",
+  "burkina faso":"BF","burundi":"BI","cambodia":"KH","cameroon":"CM","canada":"CA",
+  "cape verde":"CV","chad":"TD","chile":"CL","china":"CN","colombia":"CO",
+  "costa rica":"CR","croatia":"HR","cuba":"CU","cyprus":"CY","czech republic":"CZ","czechia":"CZ",
+  "denmark":"DK","djibouti":"DJ","dominican republic":"DO","ecuador":"EC","egypt":"EG",
+  "el salvador":"SV","estonia":"EE","ethiopia":"ET","fiji":"FJ","finland":"FI",
+  "france":"FR","gabon":"GA","gambia":"GM","georgia":"GE","germany":"DE",
+  "ghana":"GH","greece":"GR","guatemala":"GT","guyana":"GY","haiti":"HT",
+  "honduras":"HN","hong kong":"HK","hungary":"HU","iceland":"IS","india":"IN",
+  "indonesia":"ID","bali":"ID","iran":"IR","iraq":"IQ","ireland":"IE",
+  "israel":"IL","italy":"IT","jamaica":"JM","japan":"JP","jordan":"JO",
+  "kazakhstan":"KZ","kenya":"KE","kuwait":"KW","kyrgyzstan":"KG","laos":"LA",
+  "latvia":"LV","lebanon":"LB","liberia":"LR","libya":"LY","liechtenstein":"LI",
+  "lithuania":"LT","luxembourg":"LU","macau":"MO","madagascar":"MG","malawi":"MW",
+  "malaysia":"MY","maldives":"MV","mali":"ML","malta":"MT","mauritius":"MU",
+  "mexico":"MX","moldova":"MD","monaco":"MC","mongolia":"MN","montenegro":"ME",
+  "morocco":"MA","mozambique":"MZ","myanmar":"MM","namibia":"NA","nepal":"NP",
+  "netherlands":"NL","holland":"NL","new zealand":"NZ","nicaragua":"NI","niger":"NE",
+  "nigeria":"NG","north korea":"KP","north macedonia":"MK","norway":"NO","oman":"OM",
+  "pakistan":"PK","panama":"PA","papua new guinea":"PG","paraguay":"PY","peru":"PE",
+  "philippines":"PH","poland":"PL","portugal":"PT","qatar":"QA","romania":"RO",
+  "russia":"RU","rwanda":"RW","saudi arabia":"SA","senegal":"SN","serbia":"RS",
+  "singapore":"SG","slovakia":"SK","slovenia":"SI","somalia":"SO","south africa":"ZA",
+  "south korea":"KR","korea":"KR","spain":"ES","sri lanka":"LK","sudan":"SD",
+  "sweden":"SE","switzerland":"CH","syria":"SY","taiwan":"TW","tajikistan":"TJ",
+  "tanzania":"TZ","thailand":"TH","togo":"TG","trinidad and tobago":"TT","tunisia":"TN",
+  "turkey":"TR","turkiye":"TR","turkmenistan":"TM","uganda":"UG","ukraine":"UA",
+  "united arab emirates":"AE","uae":"AE",
+  "united kingdom":"GB","uk":"GB","great britain":"GB","britain":"GB",
+  "united states":"US","united states of america":"US","usa":"US","america":"US",
+  "uruguay":"UY","uzbekistan":"UZ","venezuela":"VE","vietnam":"VN","yemen":"YE",
+  "zambia":"ZM","zimbabwe":"ZW",
 };
+
+// Great Britain's constituent countries aren't ISO countries themselves, but have
+// their own recognisable flag emoji via Unicode "tag sequences".
+const SUBDIVISION_FLAGS = {
+  "england": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  "scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+  "wales": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+};
+
+function countryFlag(countryName){
+  if (!countryName) return '🌍';
+  const key = countryName.trim().toLowerCase();
+  if (SUBDIVISION_FLAGS[key]) return SUBDIVISION_FLAGS[key];
+  const code = COUNTRY_CODES[key];
+  if (!code) return '🌍';
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
+}
 const TYPE_COLORS = {
   "Competition": "#d6396b",
   "Workshops": "#9b6bd6",
@@ -1141,6 +1202,17 @@ const TYPE_COLORS = {
 };
 const FALLBACK_COLOR = "#8b8fa3";
 function typeColor(type){ return TYPE_COLORS[type] || FALLBACK_COLOR; }
+
+// TODO: replace both values below once the "Report an issue" Google Form exists.
+// REPORT_FORM_BASE_URL: the form's forms.gle link.
+// REPORT_FORM_EVENT_ID_ENTRY: the entry ID for the "Event ID" question, found via
+// Google Forms' "Get pre-filled link" feature (Send > link icon > Get pre-filled link).
+const REPORT_FORM_BASE_URL = "https://forms.gle/REPLACE-WITH-REPORT-FORM-ID";
+const REPORT_FORM_EVENT_ID_ENTRY = "entry.REPLACE_WITH_ENTRY_ID";
+
+function reportIssueUrl(e){
+  return `${REPORT_FORM_BASE_URL}?${REPORT_FORM_EVENT_ID_ENTRY}=${encodeURIComponent(e.id)}`;
+}
 
 let EVENTS = [];
 
@@ -1196,19 +1268,17 @@ function renderList(filtered){
       results.appendChild(grid);
     }
     const grid = results.lastElementChild;
-    const a = document.createElement('a');
-    a.href = e.website && e.website !== 'nan' ? e.website : '#';
-    a.target = '_blank';
-    a.rel = 'noopener';
+    const a = document.createElement('div');
     a.className = 'ticket' + (e.status === 'tbc' ? ' tbc' : '');
-    const flag = FLAGS[e.country] || '🌍';
+    const flag = countryFlag(e.country);
     const typeTags = e.types.map(t => `<span class="tag type" style="background:${typeColor(t)}29; color:${typeColor(t)};">${t}</span>`).join('');
+    const websiteHref = e.website && e.website !== 'nan' ? e.website : '#';
     a.innerHTML = `
       <div class="date-stub">
         <span class="d">${d.getDate()}</span>
         <span class="mo">${MONTHS[d.getMonth()]}</span>
       </div>
-      <div class="ticket-name">${e.name}</div>
+      <a class="ticket-name" href="${websiteHref}" target="_blank" rel="noopener">${e.name}</a>
       <div class="ticket-loc">${flag} ${e.city}, ${e.country}</div>
       <div class="ticket-tags">
         <span class="tag range">${fmtRange(e.start_date, e.end_date)}</span>
@@ -1216,6 +1286,7 @@ function renderList(filtered){
         ${e.status === 'tbc' ? '<span class="tag status-tbc">Dates TBC</span>' : ''}
       </div>
       ${e.ai_sourced ? '<div class="ai-flag">⚠ Identified automatically — confirm details with the organiser before booking.</div>' : ''}
+      <a class="report-issue" href="${reportIssueUrl(e)}" target="_blank" rel="noopener">Report an issue</a>
     `;
     grid.appendChild(a);
   });
@@ -1262,7 +1333,7 @@ function renderMap(filtered){
       iconSize: [size, size],
     });
     const popupHtml = `
-      <div class="popup-city">${FLAGS[country] || '🌍'} ${city}, ${country}</div>
+      <div class="popup-city">${countryFlag(country)} ${city}, ${country}</div>
       ${group.map(e => `
         <div class="popup-event">
           <a href="${e.website}" target="_blank" rel="noopener">${e.name}</a>
