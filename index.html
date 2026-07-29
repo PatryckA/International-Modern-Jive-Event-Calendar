@@ -355,7 +355,13 @@
     letter-spacing:0.02em;
   }
   .tag.type{background:rgba(214,57,107,0.16); color:#ef7ba4;}
-  .tag.status-tbc{background:rgba(139,143,163,0.16); color:var(--slate);}
+  .tag.status-tbc{
+    background:rgba(214,57,107,0.18);
+    color:#ef4d6f;
+    font-weight:700;
+    font-size:0.78rem;
+    padding:5px 11px;
+  }
   .tag.range{background:rgba(232,163,61,0.14); color:var(--gold);}
 
   .ai-flag{
@@ -425,8 +431,7 @@
   </div>
 
   <section class="hero">
-    <div class="hero-eyebrow">International calendar</div>
-    <h1>International Modern Jive <em>Event Calendar</em></h1>
+    <h1>International Modern Jive<br><em>Event Calendar</em></h1>
     <p class="hero-sub">Championships, weekenders and dance holidays across the international Ceroc & Modern Jive community — one list, always sorted by what's coming up next.</p>
     <div class="stat-row" id="statRow"></div>
   </section>
@@ -1194,7 +1199,7 @@ function countryFlag(countryName){
   return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
 }
 const TYPE_COLORS = {
-  "Competition": "#d6396b",
+  "Competition": "#e8a33d",
   "Workshops": "#9b6bd6",
   "Dance Holiday": "#4a90d9",
   "Cruise": "#3fb8af",
@@ -1283,7 +1288,7 @@ function renderList(filtered){
       <div class="ticket-tags">
         <span class="tag range">${fmtRange(e.start_date, e.end_date)}</span>
         ${typeTags}
-        ${e.status === 'tbc' ? '<span class="tag status-tbc">Dates TBC</span>' : ''}
+        ${e.status === 'tbc' ? '<span class="tag status-tbc">Unconfirmed</span>' : ''}
       </div>
       ${e.ai_sourced ? '<div class="ai-flag">⚠ Identified automatically — confirm details with the organiser before booking.</div>' : ''}
       <a class="report-issue" href="${reportIssueUrl(e)}" target="_blank" rel="noopener">Report an issue</a>
@@ -1339,7 +1344,7 @@ function renderMap(filtered){
           <a href="${e.website}" target="_blank" rel="noopener">${e.name}</a>
           <div class="popup-meta">
             ${e.types.map(t => `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${typeColor(t)};margin-right:3px;"></span>`).join('')}
-            ${fmtRange(e.start_date, e.end_date)} · ${e.types.join(', ')}${e.status==='tbc' ? ' · Dates TBC' : ''}
+            ${fmtRange(e.start_date, e.end_date)} · ${e.types.join(', ')}${e.status==='tbc' ? ' · Unconfirmed' : ''}
           </div>
         </div>
       `).join('')}
