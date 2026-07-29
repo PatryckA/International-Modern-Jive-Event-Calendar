@@ -1204,14 +1204,14 @@ const FALLBACK_COLOR = "#8b8fa3";
 function typeColor(type){ return TYPE_COLORS[type] || FALLBACK_COLOR; }
 
 // TODO: replace both values below once the "Report an issue" Google Form exists.
-// REPORT_FORM_BASE_URL: the form's forms.gle link.
-// REPORT_FORM_EVENT_ID_ENTRY: the entry ID for the "Event ID" question, found via
-// Google Forms' "Get pre-filled link" feature (Send > link icon > Get pre-filled link).
-const REPORT_FORM_BASE_URL = "https://forms.gle/REPLACE-WITH-REPORT-FORM-ID";
-const REPORT_FORM_EVENT_ID_ENTRY = "entry.REPLACE_WITH_ENTRY_ID";
+// REPORT_FORM_BASE_URL: the form's full viewform URL (not the forms.gle short link,
+// to be safe that query params carry through correctly).
+// REPORT_FORM_EVENT_ID_ENTRY: the entry ID for the "Event ID" question.
+const REPORT_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfnsH_4y9s9KeA4u0F6UHw_iYDnx8JZFa8pc5Y-r-3lWm4vgQ/viewform";
+const REPORT_FORM_EVENT_ID_ENTRY = "entry.159512279";
 
 function reportIssueUrl(e){
-  return `${REPORT_FORM_BASE_URL}?${REPORT_FORM_EVENT_ID_ENTRY}=${encodeURIComponent(e.id)}`;
+  return `${REPORT_FORM_BASE_URL}?usp=pp_url&${REPORT_FORM_EVENT_ID_ENTRY}=${encodeURIComponent(e.id)}`;
 }
 
 let EVENTS = [];
