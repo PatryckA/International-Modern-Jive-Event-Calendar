@@ -1200,7 +1200,7 @@ function countryFlag(countryName){
   return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
 }
 const TYPE_COLORS = {
-  "Competition": "#e8a33d",
+  "Competition": "#3ba55d",
   "Workshops": "#9b6bd6",
   "Dance Holiday": "#4a90d9",
   "Cruise": "#3fb8af",
@@ -1301,7 +1301,7 @@ function renderList(filtered){
 let map, markerLayer;
 
 function initMap(){
-  map = L.map('map', { scrollWheelZoom: true }).setView([20, 20], 2);
+  map = L.map('map', { scrollWheelZoom: true, worldCopyJump: true }).setView([20, 20], 2);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
     maxZoom: 18,
