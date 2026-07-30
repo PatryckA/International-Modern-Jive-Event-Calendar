@@ -53,6 +53,9 @@
   .type-checks{display:flex; flex-direction:column; gap:2px; min-width:110px;}
   .type-checks label{display:flex; align-items:center; gap:5px; font-size:0.76rem; color:var(--slate); cursor:pointer;}
   .type-checks input{width:auto; accent-color:var(--gold);}
+  .geo-status{display:block; font-size:0.66rem; color:var(--slate); margin-top:3px; white-space:nowrap;}
+  .geo-status.ok{color:#3ba55d;}
+  .geo-status.fail{color:#e2583e;}
   .token-box{background:var(--floor-raised); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:24px;}
   .token-box input{max-width:420px; display:inline-block; margin-right:8px;}
   .token-box .btn{padding:8px 16px; font-size:0.8rem;}
@@ -114,6 +117,7 @@
 </table>
 
 <button class="btn secondary" onclick="addRow()">+ Add event</button>
+<button class="btn secondary" onclick="geocodeAllMissing()">📍 Fill missing coordinates</button>
 <button class="btn" onclick="generateJSON()">Generate JSON</button>
 
 <div id="output"></div>
@@ -240,7 +244,7 @@ function rowHTML(e = {}){
       <td><input type="date" class="f-end" value="${e.end_date||''}"></td>
       <td><input class="f-website" value="${e.website||''}"></td>
       <td><input class="f-lat narrow" value="${e.lat ?? ''}"></td>
-      <td><input class="f-lon narrow" value="${e.lon ?? ''}"></td>
+      <td><input class="f-lon narrow" value="${e.lon ?? ''}"><span class="geo-status"></span></td>
       <td><button class="del-btn" onclick="this.closest('tr').remove()">Remove</button></td>
     </tr>
   `;
@@ -252,6 +256,89 @@ function renderTable(){
 
 function addRow(){
   document.getElementById('tbody').insertAdjacentHTML('beforeend', rowHTML());
+}
+
+/** Looks up lat/lon for a city+country. Tries Nominatim first, then falls back
+ *  to Photon (also OSM-based). Returns {lat, lon} or null. */
+async function geocodeCity(city, country){
+  const query = `${city}, ${country}`;
+  try{
+    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`;
+    const res = await fetch(url);
+    if (res.ok){
+      const results = await res.json();
+      if (results.length) return { lat: parseFloat(results[0].lat), lon: parseFloat(results[0].lon) };
+    }
+  }catch(err){ console.error('Nominatim error', err); }
+  try{
+    const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(query)}&limit=1`;
+    const res = await fetch(url);
+    if (res.ok){
+      const data = await res.json();
+      if (data.features && data.features.length){
+        const [lon, lat] = data.features[0].geometry.coordinates;
+        return { lat, lon };
+      }
+    }
+  }catch(err){ console.error('Photon error', err); }
+  return null;
+}
+
+async function geocodeRow(row){
+  const cityInput = row.querySelector('.f-city');
+  const countryInput = row.querySelector('.f-country');
+  const latInput = row.querySelector('.f-lat');
+  const lonInput = row.querySelector('.f-lon');
+  const status = row.querySelector('.geo-status');
+
+  const city = cityInput.value.trim();
+  const country = countryInput.value.trim();
+  if (!city || !country) return;
+
+  status.className = 'geo-status';
+  status.textContent = 'Looking up…';
+  const coords = await geocodeCity(city, country);
+  if (coords){
+    latInput.value = coords.lat.toFixed(4);
+    lonInput.value = coords.lon.toFixed(4);
+    status.className = 'geo-status ok';
+    status.textContent = '✓ found';
+  } else {
+    status.className = 'geo-status fail';
+    status.textContent = '✗ not found — enter manually';
+  }
+}
+
+// Auto-trigger a lookup when city/country is filled in and lat/lon are still empty.
+// Uses 'focusout' (bubbles, unlike 'blur') with delegation so it works on rows added later too.
+document.addEventListener('focusout', (evt) => {
+  if (!evt.target.matches('.f-city, .f-country')) return;
+  const row = evt.target.closest('tr');
+  if (!row) return;
+  const latInput = row.querySelector('.f-lat');
+  const lonInput = row.querySelector('.f-lon');
+  if (latInput.value.trim() === '' && lonInput.value.trim() === ''){
+    geocodeRow(row);
+  }
+});
+
+async function geocodeAllMissing(){
+  const rows = [...document.querySelectorAll('#tbody tr')].filter(row => {
+    const lat = row.querySelector('.f-lat').value.trim();
+    const lon = row.querySelector('.f-lon').value.trim();
+    const city = row.querySelector('.f-city').value.trim();
+    const country = row.querySelector('.f-country').value.trim();
+    return lat === '' && lon === '' && city && country;
+  });
+  if (rows.length === 0){
+    alert('No rows are missing coordinates (with both city and country filled in).');
+    return;
+  }
+  for (let i = 0; i < rows.length; i++){
+    await geocodeRow(rows[i]);
+    // Nominatim's usage policy asks for max ~1 request/second - stay well under that.
+    await new Promise(r => setTimeout(r, 1100));
+  }
 }
 
 function loadFromPaste(){
