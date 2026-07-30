@@ -97,6 +97,11 @@
     font-size:2rem;
     color:var(--paper);
   }
+  .stat.wide b{
+    font-size:1.3rem;
+    max-width:32ch;
+    line-height:1.25;
+  }
   .stat span{
     font-size:0.82rem;
     color:var(--slate);
@@ -1191,13 +1196,33 @@ const SUBDIVISION_FLAGS = {
   "wales": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
 };
 
+function toCodepoints(str){
+  return [...str].map(c => c.codePointAt(0).toString(16)).join('-');
+}
+
+// Renders flags as actual images (Twemoji) rather than relying on the visitor's OS
+// having flag emoji at all - Windows in particular ships without real flag glyphs
+// and instead shows the raw two-letter code or an odd placeholder for rarer ones
+// (like the England/Scotland/Wales tag-sequence flags). If the image ever fails
+// to load, it falls back to the plain emoji character so nothing breaks silently.
+function flagImgHtml(emoji){
+  const cp = toCodepoints(emoji);
+  const url = `https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/${cp}.svg`;
+  return `<img src="${url}" alt="" data-fallback-cp="${cp}" style="width:1.05em;height:1.05em;vertical-align:-0.15em;display:inline-block;" onerror="this.outerHTML=String.fromCodePoint(...this.dataset.fallbackCp.split('-').map(x=>parseInt(x,16)))">`;
+}
+
 function countryFlag(countryName){
-  if (!countryName) return '🌍';
+  if (!countryName) return flagImgHtml('🌍');
   const key = countryName.trim().toLowerCase();
-  if (SUBDIVISION_FLAGS[key]) return SUBDIVISION_FLAGS[key];
-  const code = COUNTRY_CODES[key];
-  if (!code) return '🌍';
-  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
+  let emoji;
+  if (SUBDIVISION_FLAGS[key]){
+    emoji = SUBDIVISION_FLAGS[key];
+  } else {
+    const code = COUNTRY_CODES[key];
+    if (!code) return flagImgHtml('🌍');
+    emoji = String.fromCodePoint(...[...code.toUpperCase()].map(c => 127397 + c.charCodeAt(0)));
+  }
+  return flagImgHtml(emoji);
 }
 const TYPE_COLORS = {
   "Competition": "#3ba55d",
@@ -1398,9 +1423,9 @@ function populateStats(){
   const stats = [
     { b: upcoming.length, s: "Upcoming events" },
     { b: countries, s: "Countries" },
-    { b: soonest ? fmtRange(soonest.start_date, soonest.end_date) : "—", s: "Next up" },
+    { b: soonest ? `${soonest.name}, ${fmtRange(soonest.start_date, soonest.end_date)}` : "—", s: "Next up", wide: true },
   ];
-  document.getElementById('statRow').innerHTML = stats.map(s=>`<div class="stat"><b>${s.b}</b><span>${s.s}</span></div>`).join('');
+  document.getElementById('statRow').innerHTML = stats.map(s=>`<div class="stat${s.wide ? ' wide' : ''}"><b>${s.b}</b><span>${s.s}</span></div>`).join('');
 }
 
 async function init(){
