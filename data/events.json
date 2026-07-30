@@ -363,8 +363,8 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "united-kingdom-norfolk-chill-silc-weekender",
-    "name": "Chill- SILC Weekender",
+    "id": "united-kingdom-norfolk-chill",
+    "name": "Chill",
     "city": "Norfolk",
     "country": "United Kingdom",
     "region": "Europe",
@@ -527,13 +527,13 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "england-hemsby-ceroc-jamfest",
-    "name": "Ceroc Jamfest",
+    "id": "england-hemsby-jamfest",
+    "name": "Jamfest",
     "city": "Hemsby",
     "country": "England",
     "region": "Europe",
-    "lat": null,
-    "lon": null,
+    "lat": 52.694,
+    "lon": 1.6832,
     "types": [
       "Workshops"
     ],
@@ -547,8 +547,8 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "spain-islantilla-huelva-ceroc-medfest",
-    "name": "Ceroc Medfest",
+    "id": "spain-islantilla-huelva-medfest",
+    "name": "Medfest",
     "city": "Islantilla / Huelva",
     "country": "Spain",
     "region": "Europe",
@@ -568,13 +568,13 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "england-blackpool-ceroc-bliss",
-    "name": "Ceroc Bliss",
+    "id": "england-blackpool-bliss",
+    "name": "Bliss",
     "city": "Blackpool",
     "country": "England",
     "region": "Europe",
-    "lat": null,
-    "lon": null,
+    "lat": 53.8179,
+    "lon": -3.051,
     "types": [
       "Workshops"
     ],
@@ -628,13 +628,13 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "england-folkstone-ceroc-splash",
-    "name": "Ceroc Splash",
+    "id": "england-folkstone-splash",
+    "name": "Splash",
     "city": "Folkstone",
     "country": "England",
     "region": "Europe",
-    "lat": null,
-    "lon": null,
+    "lat": 54.5196,
+    "lon": -1.2435,
     "types": [
       "Workshops"
     ],
@@ -694,8 +694,8 @@
     "city": "London",
     "country": "England",
     "region": "Europe",
-    "lat": null,
-    "lon": null,
+    "lat": 51.5074,
+    "lon": -0.1278,
     "types": [
       "Competition"
     ],
@@ -730,13 +730,73 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "england-norfolk-swish",
+    "name": "Swish",
+    "city": "Norfolk",
+    "country": "England",
+    "region": "Europe",
+    "lat": 52.6667,
+    "lon": 1,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-02-19",
+    "end_date": "2027-02-22",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/swish/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-folkstone-storm",
+    "name": "Storm",
+    "city": "Folkstone",
+    "country": "England",
+    "region": "Europe",
+    "lat": 54.5196,
+    "lon": -1.2435,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-03-12",
+    "end_date": "2027-03-15",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/storm/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-sand-bay-breeze",
+    "name": "Breeze",
+    "city": "Sand Bay",
+    "country": "England",
+    "region": "Europe",
+    "lat": 51.3759,
+    "lon": -2.9618,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-05-14",
+    "end_date": "2027-05-17",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/breeze/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "australia-sydney-australian-ceroc-dance-championships-acdc",
     "name": "Australian Ceroc Dance Championships (ACDC)",
     "city": "Sydney",
     "country": "Australia",
     "region": "Oceania",
-    "lat": null,
-    "lon": null,
+    "lat": -33.8698,
+    "lon": 151.2083,
     "types": [
       "Competition",
       "Workshops"
@@ -746,6 +806,168 @@
     "end_date": "2027-06-13",
     "multiday": true,
     "website": "https://ceroc.com.au/events/championships/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-hemsby-chill",
+    "name": "Chill",
+    "city": "Hemsby",
+    "country": "England",
+    "region": "Europe",
+    "lat": 52.694,
+    "lon": 1.6832,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-06-11",
+    "end_date": "2027-06-14",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/chill/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "croatia-veli-lo-inj-blaze",
+    "name": "Blaze",
+    "city": "Veli Lošinj",
+    "country": "Croatia",
+    "region": "Other",
+    "lat": 44.5211,
+    "lon": 14.5017,
+    "types": [
+      "Other"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-06-12",
+    "end_date": "2027-06-19",
+    "multiday": true,
+    "website": "https://www.cerocblaze.com/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "france-strasbourg-river-cruise",
+    "name": "River Cruise",
+    "city": "Strasbourg",
+    "country": "France",
+    "region": "Europe",
+    "lat": 48.5846,
+    "lon": 7.7507,
+    "types": [
+      "Workshops",
+      "Cruise"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-07-15",
+    "end_date": "2027-07-23",
+    "multiday": true,
+    "website": "https://www.ceroccruise.com/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-hemsby-jamfest",
+    "name": "Jamfest",
+    "city": "Hemsby",
+    "country": "England",
+    "region": "Europe",
+    "lat": 52.694,
+    "lon": 1.6832,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-09-10",
+    "end_date": "2027-09-13",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/jamfest/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "spain-islantilla-medfest",
+    "name": "Medfest",
+    "city": "Islantilla",
+    "country": "Spain",
+    "region": "Europe",
+    "lat": 37.2066,
+    "lon": -7.2367,
+    "types": [
+      "Workshops",
+      "Dance Holiday"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-10-03",
+    "end_date": "2027-10-10",
+    "multiday": true,
+    "website": "https://www.cerocmedfest.com/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-blackpool-bliss",
+    "name": "Bliss",
+    "city": "Blackpool",
+    "country": "England",
+    "region": "Europe",
+    "lat": 53.8179,
+    "lon": -3.051,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-10-15",
+    "end_date": "2027-10-18",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/bliss/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-folkstone-splash",
+    "name": "Splash",
+    "city": "Folkstone",
+    "country": "England",
+    "region": "Europe",
+    "lat": 54.5196,
+    "lon": -1.2435,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-11-05",
+    "end_date": "2027-11-08",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/splash/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-london-ceroc-champs-uk",
+    "name": "Ceroc Champs (UK)",
+    "city": "London",
+    "country": "England",
+    "region": "Europe",
+    "lat": 51.5074,
+    "lon": -0.1278,
+    "types": [
+      "Competition"
+    ],
+    "status": "confirmed",
+    "start_date": "2027-11-19",
+    "end_date": "2027-11-20",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/champs/ceroc/",
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
