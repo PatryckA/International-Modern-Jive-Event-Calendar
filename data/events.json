@@ -527,6 +527,26 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "england-hemsby-ceroc-jamfest",
+    "name": "Ceroc Jamfest",
+    "city": "Hemsby",
+    "country": "England",
+    "region": "Europe",
+    "lat": null,
+    "lon": null,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-09-04",
+    "end_date": "2026-09-07",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/jamfest/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "spain-islantilla-huelva-ceroc-medfest",
     "name": "Ceroc Medfest",
     "city": "Islantilla / Huelva",
@@ -548,21 +568,21 @@
     "source": "organiser-submitted"
   },
   {
-    "id": "new-zealand-auckland-ceroc-nz-jurassic-jam",
-    "name": "Ceroc NZ Jurassic Jam",
-    "city": "Auckland",
-    "country": "New Zealand",
-    "region": "Oceania",
-    "lat": -36.8485,
-    "lon": 174.7633,
+    "id": "england-blackpool-ceroc-bliss",
+    "name": "Ceroc Bliss",
+    "city": "Blackpool",
+    "country": "England",
+    "region": "Europe",
+    "lat": null,
+    "lon": null,
     "types": [
-      "Competition"
+      "Workshops"
     ],
-    "status": "tbc",
-    "start_date": "2026-10-23",
-    "end_date": "2026-10-24",
+    "status": "confirmed",
+    "start_date": "2026-10-16",
+    "end_date": "2026-10-19",
     "multiday": true,
-    "website": "https://cerocevents.co.nz/ceroc-jurassic-jam-2/",
+    "website": "https://www.cerocescape.com/bliss/",
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
@@ -583,6 +603,46 @@
     "end_date": "2026-10-25",
     "multiday": true,
     "website": "https://www.idance.co.nz/simply",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "new-zealand-auckland-ceroc-nz-jurassic-jam",
+    "name": "Ceroc NZ Jurassic Jam",
+    "city": "Auckland",
+    "country": "New Zealand",
+    "region": "Oceania",
+    "lat": -36.8485,
+    "lon": 174.7633,
+    "types": [
+      "Competition"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-10-24",
+    "end_date": "2026-10-25",
+    "multiday": true,
+    "website": "https://cerocevents.co.nz/calendar/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
+    "id": "england-folkstone-ceroc-splash",
+    "name": "Ceroc Splash",
+    "city": "Folkstone",
+    "country": "England",
+    "region": "Europe",
+    "lat": null,
+    "lon": null,
+    "types": [
+      "Workshops"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-11-06",
+    "end_date": "2026-11-09",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/splash/",
     "ai_sourced": false,
     "needs_review": false,
     "source": "organiser-submitted"
@@ -629,6 +689,26 @@
     "source": "organiser-submitted"
   },
   {
+    "id": "england-london-ceroc-champs-uk",
+    "name": "Ceroc Champs (UK)",
+    "city": "London",
+    "country": "England",
+    "region": "Europe",
+    "lat": null,
+    "lon": null,
+    "types": [
+      "Competition"
+    ],
+    "status": "confirmed",
+    "start_date": "2026-11-20",
+    "end_date": "2026-11-22",
+    "multiday": true,
+    "website": "https://www.cerocescape.com/champs/ceroc/",
+    "ai_sourced": false,
+    "needs_review": false,
+    "source": "organiser-submitted"
+  },
+  {
     "id": "new-zealand-auckland-cnz-championships",
     "name": "CNZ Championships",
     "city": "Auckland",
@@ -652,9 +732,9 @@
   {
     "id": "australia-sydney-australian-ceroc-dance-championships-acdc",
     "name": "Australian Ceroc Dance Championships (ACDC)",
-    "city": "Sydney ",
-    "country": "Australia ",
-    "region": "Other",
+    "city": "Sydney",
+    "country": "Australia",
+    "region": "Oceania",
     "lat": null,
     "lon": null,
     "types": [
